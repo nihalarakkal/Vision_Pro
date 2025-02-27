@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisioLux Optical | Premium Eyewear</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .menu li {
+            margin-left: 30px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .menu a:hover {
+            color: #ffdd59;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: #ffdd59;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+        }
+
+        .btn:hover {
+            background-color: #ffd32a;
+            transform: translateY(-2px);
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+
+        .hero {
+            padding: 60px 0;
+            background: url('/api/placeholder/1200/600') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(110, 69, 226, 0.7) 0%, rgba(136, 211, 206, 0.7) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #6e45e2;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: #777;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-img {
+            height: 200px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: #6e45e2;
+        }
+
+        .feature-content {
+            padding: 25px;
+        }
+
+        .feature-content h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature-content p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .feature-content a {
+            color: #6e45e2;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-content a span {
+            margin-left: 5px;
+        }
+
+        .products {
+            padding: 80px 0;
+            background-color: #f8f9ff;
+        }
+
+        .product-slider {
+            margin-top: 50px;
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding: 10px 0;
+        }
+
+        .product-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-card {
+            flex: 0 0 280px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            scroll-snap-align: start;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-img {
+            height: 180px;
+            background-color: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .product-content h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-content .price {
+            color: #6e45e2;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .product-content .rating {
+            display: flex;
+            margin-bottom: 15px;
+            color: #ffdd59;
+        }
+
+        .testimonials {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);
+            color: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ffdd59;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .author-info h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        .appointment {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .appointment-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .appointment-img {
+            height: 400px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .appointment-form {
+            background-color: #f8f9ff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .appointment-form h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #6e45e2;
+            outline: none;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo span {
+            margin-left: 10px;
+        }
+
+        .footer-about p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #6e45e2;
+            transform: translateY(-3px);
+        }
+
+        .footer-heading {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #6e45e2;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links a:hover {
+            color: #6e45e2;
+            transform: translateX(5px);
+        }
+
+        .footer-links a i {
+            margin-right: 10px;
+            font-size: 12px;
+        }
+
+        .contact-info {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .contact-info i {
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .appointment-container {
+                grid-template-columns: 1fr;
+            }
+
+            .appointment-img {
+                height: 300px;
+            }
+        }
+           
+        .appointment-img {
+    background: url('/static/img/g30.jpg') ;
+   }
+
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <div class="logo-icon">👓</div>
+                    <span>Vision Pro</span>
+                </div>
+
+                <ul class="menu">
+                    <!-- <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li> -->
+                </ul>
+
+
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>See the World in Perfect Clarity</h1>
+                <p>Discover our collection of premium eyewear, professional eye care services, and cutting-edge optical technology.</p>
+                <a href="{% url 'core:home' %}">
+                    <button class="btn" type="submit">Click Here</button>
+                </a>
+                <a href="{% url 'core:book_appointment' %}">
+                    <button class="btn" type="submit">Book Appointments</button>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>Experience comprehensive eye care with our range of professional services</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-img">👁</div>
+                    <div class="feature-content">
+                        <h3>Comprehensive Eye Exams</h3>
+                        <p>Our qualified optometrists use advanced technology to provide thorough eye examinations and prescriptions.</p>
+                        <a href="#">Learn more <span>→</span></a>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-img">🔎</div>
+                    <div class="feature-content">
+                        <h3>Digital Eye Strain Test</h3>
+                        <p>Specialized tests to detect and address digital eye strain and computer vision syndrome.</p>
+                        <a href="#">Learn more <span>→</span></a>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-img">⚙</div>
+                    <div class="feature-content">
+                        <h3>Frame Adjustments</h3>
+                        <p>Professional adjustments and repairs to ensure your frames fit perfectly and last longer.</p>
+                        <a href="#">Learn more <span>→</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Customers Say</h2>
+                <p>Hear from our satisfied customers about their experience with VisioLux</p>
+            </div>
+
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The eye exam was thorough and the staff was incredibly knowledgeable. They helped me find the perfect frames that suit my face shape and style. Highly recommend!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">JD</div>
+                        <div class="author-info">
+                            <h4>John Doe</h4>
+                            <p>Loyal Customer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "I've been coming to VisioLux for years. Their selection is unmatched and the quality of their lenses is exceptional. My glasses are always ready on time and fit perfectly."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">JS</div>
+                        <div class="author-info">
+                            <h4>Jane Smith</h4>
+                            <p>Returning Customer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The digital eye strain test was exactly what I needed. The optometrist provided valuable advice for managing my computer vision syndrome. My eyes feel much better now!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">MP</div>
+                        <div class="author-info">
+                            <h4>Mike Peterson</h4>
+                            <p>New Customer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <!-- <section class="appointment" id="eye-test">
+        <div class="container">
+            <div class="section-title">
+                <h2>Book Your Eye Test</h2>
+                <p>Schedule a comprehensive eye examination with our qualified optometrists</p>
+            </div>
+
+            <div class="appointment-container">
+                <div class="appointment-img"></div>
+
+                <div class="appointment-form">
+                    <h3>Request Appointment</h3>
+                    <form method="" action="">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="Enter your full name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Enter your email address">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Enter your phone number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date">Preferred Date</label>
+                            <input type="date" id="date">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="time">Preferred Time</label>
+                            <select id="time">
+                                <option value="">Select Time</option>
+                                <option value="9:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-block">Book Appointment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        👓 <span>Vision Pro</span>
+                    </div>
+                    <p>Providing premium eyewear and professional eye care services since 2005. Our mission is to help you see the world more clearly.</p>
+                    <div class="social-links">
+                        <a href="#">F</a>
+                        <a href="#">T</a>
+                        <a href="#">I</a>
+                        <a href="#">P</a>
+                    </div>
+                </div>
+
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">→ Home</a></li>
+                        <li><a href="#eyewear">→ Eyewear</a></li>
+                        <li><a href="#eye-test">→ Eye Test</a></li>
+                        <li><a href="#about">→ About Us</a></li>
+                        <li><a href="#contact">→ Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">→ Eye Examinations</a></li>
+                        <li><a href="#">→ Contact Lens Fitting</a></li>
+                        <li><a href="#">→ Digital Eye Strain Test</a></li>
+                        <li><a href="#">→ Frame Adjustments</a></li>
+                        <li><a href="#">→ Eyewear Repairs</a></li>
+                        <li><a href="#">→ Vision Therapy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <div class="contact-info">
+                        <i>📍</i>
+                        <div>123 Vision Street, Eye City, EC1 2VL</div>
+                    </div>
+                    <div class="contact-info">
+                        <i>📞</i>
+                        <div>+1 (555) 123-4567</div>
+                    </div>
+                    <div class="contact-info">
+                        <i>✉</i>
+                        <div>info@visiolux.com</div>
+                    </div>
+                    <div class="contact-info">
+                        <i>🕒</i>
+                        <div>
+                            Mon-Fri: 9:00 AM - 6:00 PM<br>
+                            Sat: 10:00 AM - 4:00 PM<br>
+                            Sun: Closed
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 VisioLux Optical. All Rights Reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+Last edited 2 minutes ago

@@ -1,0 +1,70 @@
+Simple Stripe Payment Template
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Complete Your Payment</h3>
+                </div>
+                <div class="card-body">
+                    <h4>Order Summary</h4>
+                    <p>Total amount: ₹{{ order.get_total_bill_amount_with_discount }}</p>
+                    
+                    <!-- Basic Stripe form just for debugging -->
+                    <form action="{% url 'core:stripe_payment' %}" method="post" id="payment-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div id="card-element" class="form-control" style="height: 2.4em; padding-top: .7em;">
+                            <!-- Stripe Element will be inserted here -->
+                            </div>
+                            <div id="card-errors" class="text-danger mt-2"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Pay Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Stripe JS -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    // Basic Stripe integration just to generate a token
+    const stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');
+    const elements = stripe.elements();
+    
+    // Create an instance of the card Element
+    const card = elements.create('card');
+    
+    // Add an instance of the card Element into the `card-element` div
+    card.mount('#card-element');
+    
+    // Handle form submission
+    const form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        stripe.createToken(card).then(function(result) {
+            if (result.error) {
+                // Inform the user if there was an error
+                const errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server
+                const hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'stripeToken');
+                hiddenInput.setAttribute('value', result.token.id);
+                form.appendChild(hiddenInput);
+                
+                // Submit the form
+                form.submit();
+            }
+        });
+    });
+</script>
+{% endblock %}
