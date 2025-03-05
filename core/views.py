@@ -6,14 +6,13 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
-from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 from decimal import Decimal
 from django.db.models import Q
 from django.views import View
 from django.http import HttpResponse
 
-from .forms import CheckoutForm, CouponForm, RefundForm, LensesForm,AppointmentForm
+from .forms import CheckoutForm, CouponForm, RefundForm, LensesForm
 from .models import Item, Order, OrderItem, Address, Payment, Coupon, Refund, UserProfile, EyeLenses
 
 import stripe
@@ -36,23 +35,9 @@ def create_ref_code():
 def page_not_found_view(request, exception):
     return render(request, '404.html')
 from django.shortcuts import render, redirect
-from .models import Appointment
-from .forms import AppointmentForm
 
-def book_appointment(request):
-    if request.method == "POST":
-        form = AppointmentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('core:home') # Redirect to a success page
-    else:
-        form = AppointmentForm()
 
-    return render(request, "book_appointment.html", {"form": form})
 
-def appointment_list(request):
-    appointments = Appointment.objects.all().order_by("-created_at")
-    return render(request, "appointment_list.html", {"appointments": appointments})
 
 
 class Home(ListView):
@@ -446,35 +431,9 @@ class RemoveLenses(View):
 
 
 
-class PayPalPayment(LoginRequiredMixin, View):
-    def get(self, request, *args, **kwargs):
-        order = Order.objects.get(user=request.user, ordered=False)
-        if Order.shipping_address:
-            host = request.get_host()
-            paypal_dict = {
-                'business': settings.PAYPAL_RECEIVER_EMAIL,
-                'amount': '%.2f' % order.get_total_bill_amount_with_discount(),
-                'item_name': 'Order {} by {}'.format(order.id, order.user.username),
-                'invoice': str(order.id),
-                'currency_code': 'INR',
-                'notify_url': 'http://{}{}'.format(host,
-                                                reverse('paypal-ipn')),
-                'return_url': 'http://{}{}'.format(host,
-                                                reverse('core:payment_done')),
-                'cancel_return': 'http://{}{}'.format(host,
-                                                    reverse('core:payment_cancelled')),
-            }
 
-            form = PayPalPaymentsForm(initial=paypal_dict)
-            return render(request, 'paypal_payment.html', {
-                'order': order, 
-                'form': form, 
-                "cart": order,
-                'DISPLAY_COUPON_FORM':False}
-            )
-        else:
-            messages.warning(request, "You must have Billing Address to your order!")
-            return redirect('core:checkout')
+
+            
 
 
 @csrf_exempt
@@ -657,18 +616,6 @@ class UserProfileView(LoginRequiredMixin, View):
 
 
 
-    def book_appointment(request):
-        if request.method == "POST":
-            form = AppointmentForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('success')  # Redirect to a success page
-        else:
-            form = AppointmentForm()
-
-        return render(request, 'book_appointment.html', {'form': form})
-
-        
 
 
-
+    

@@ -4,7 +4,7 @@ from django.urls import path, include
 
 from core.api.views import (
     hello, HomeView, ProductDetail,
-    OrderSummary, UserProfileView,BaseView,BookAppointment, AppointmentView ,
+    OrderSummary, UserProfileView,BaseView,
 )
 
 app_name = "core_api"
@@ -18,8 +18,7 @@ urlpatterns = [
     path('home', HomeView.as_view(), name='home'),
     path('<slug>/', ProductDetail.as_view(), name='details'),
     path('',BaseView.as_view(),name="base"),
-    path('book_appointment/',BookAppointment.as_view(),name='book_appointment'),
-    path('appointment/', AppointmentView.as_view(), name='appointment'),
+    
 
 
 

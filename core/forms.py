@@ -1,7 +1,7 @@
 from django import forms
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
-from .models import Appointment
+
 
 
 PAYMENT_CHOICE =(
@@ -84,16 +84,5 @@ class RefundForm(forms.Form):
     ))
     ref_code = forms.CharField(required=True)
 
-from django import forms
-from .models import Appointment
-
-class AppointmentForm(forms.ModelForm):
-    class Meta:
-        model = Appointment
-        fields = ["name", "email", "phone", "date", "time"]
-        widgets = {
-            "date": forms.DateInput(attrs={"type": "date"}),
-            "time": forms.Select(choices=Appointment.TIME_SLOTS),
-        }
 
 

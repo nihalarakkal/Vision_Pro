@@ -5,9 +5,9 @@ from django.conf.urls.static import static
 from .views import (Home, Checkout, ProductDetail,Base,
                 add_to_cart, remove_from_cart,
                 OrderSummary,StripePayment, remove_single_item_from_cart,
-                PayPalPayment, payment_done, payment_canceled, 
+                 payment_done, payment_canceled, 
                 Search, AddCoupon, RefundRequest,
-                UserProfileView, AddLenses, RemoveLenses,book_appointment, appointment_list)
+                UserProfileView, AddLenses, RemoveLenses)
                 
 app_name = "core"
 handler404 = 'core.views.page_not_found_view'
@@ -24,15 +24,13 @@ urlpatterns = [
     path("remove-lenses/<slug>", RemoveLenses.as_view(), name="remove_lenses"),
     path("remove-from-cart/<slug>", remove_from_cart, name="remove_from_cart"),
     path("remove-single-item-from-cart/<slug>", remove_single_item_from_cart, name="remove_single_item_from_cart"),
-    path('paypal-payment/', PayPalPayment.as_view(), name='paypal_payment'),
     path('stripe-payment/', StripePayment.as_view(), name='stripe_payment'),
     path('payment-done/', payment_done, name='payment_done'),
     path('payment-cancelled/', payment_canceled, name='payment_cancelled'),
     path('search/',Search.as_view(), name='search'),
     path("refund-request/", RefundRequest.as_view(), name="refund_request"),
     path("user/",UserProfileView.as_view(), name="user"),
-    path("book/", book_appointment, name="book_appointment"),
-    path("appointments/", appointment_list, name="appointment_list"),
+  
   
 
 

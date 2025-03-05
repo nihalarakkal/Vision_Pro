@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.conf import settings 
 from django.db import models
 from django.shortcuts import reverse
 from django_countries.fields import CountryField
@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.contrib.auth.models import User
+
 
 
 
@@ -41,7 +42,6 @@ ADDRESS_CHOICES = (
     ('B', "Billing"),
     ('S', "Shipping"),
 )
-
 
 # Create your models here.
 class Item(models.Model):
@@ -101,7 +101,7 @@ class OrderItem(models.Model):
             return self.get_total_item_price()  
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ref_code = models.CharField(max_length=20, blank=True, null=True)
     ordered = models.BooleanField(default=False)
     items = models.ManyToManyField(OrderItem)
@@ -176,7 +176,7 @@ class Refund(models.Model):
         return f"{self.pk}"
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     phone = models.CharField(max_length=15,blank=True, null=True)
@@ -195,39 +195,7 @@ class EyeLenses(models.Model):
 
     def __str__(self):
         return self.user.username
-class Book_Appointment(models.Model):
-    name = models.CharField(max_length=255,null=True)
-    email = models.EmailField(null=True)
-    phone = models.CharField(max_length=15,null=True)
-    date = models.DateField(null=True)
-    time = models.TimeField(null=True)
-    created_at = models.DateTimeField(auto_now_add=True,null=True)
 
-    def __str__(self):
-        return f"{self.name} - {self.date} at {self.time}"
-from django.db import models
-
-class Appointment(models.Model):
-    TIME_SLOTS = [
-        ("9:00", "9:00 AM"),
-        ("10:00", "10:00 AM"),
-        ("11:00", "11:00 AM"),
-        ("12:00", "12:00 PM"),
-        ("13:00", "1:00 PM"),
-        ("14:00", "2:00 PM"),
-        ("15:00", "3:00 PM"),
-        ("16:00", "4:00 PM"),
-    ]
-
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
-    phone = models.CharField(max_length=15)
-    date = models.DateField()
-    time = models.CharField(max_length=5, choices=TIME_SLOTS)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.name} - {self.date} at {self.time}"
 
 
 

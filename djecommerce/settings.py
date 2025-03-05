@@ -21,10 +21,10 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',  
     'allauth',
     'allauth.account',
-    'django_countries',
-    'paypal.standard.ipn',  
+    'django_countries', 
     'allauth.socialaccount',
     'stripe',
+    'Staff',
 
     # Rest Framework API
     'rest_framework',
@@ -85,6 +85,7 @@ TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
 
 
 STATIC_URL = '/static/'
