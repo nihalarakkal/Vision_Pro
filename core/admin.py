@@ -97,3 +97,5 @@ admin.site.register(Coupon)
 admin.site.register(UserProfile)
 
 admin.site.register(EyeLenses)
+
+

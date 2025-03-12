@@ -98,8 +98,8 @@
             <button class="dropbtn">Login</button>
             <div class="dropdown-content">
                 <a href="{% url 'core:user' %}">User Login</a>
-                <a href="/login/staff">Staff Login</a>
-                <a href="/login/admin">Admin Login</a>
+                <a href="{% url 'Staff:staff' %}">Staff Login</a>
+                <a href="{% url 'Admin:admin' %}">Admin Login</a>
             </div>
         </div>
     </div>

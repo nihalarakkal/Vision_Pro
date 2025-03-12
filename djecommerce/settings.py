@@ -3,7 +3,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
-
 DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALLOWED_HOSTS = ['192.168.43.215', 'localhost', '127.0.0.1']
@@ -25,6 +24,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'stripe',
     'Staff',
+    'Admin',
 
     # Rest Framework API
     'rest_framework',
@@ -85,7 +85,8 @@ TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
+# In settings.py
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 STATIC_URL = '/static/'
@@ -123,6 +124,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
     
 ]
+
 
 SITE_ID = 1
 

@@ -247,7 +247,7 @@ def remove_from_cart(request, slug):
     else:
         messages.info(request,"You don't have any active order!") 
         return redirect('core:product-detail', slug=slug)
-    return redirect('core:product-detail', slug=slug)
+
 
 
 @login_required
@@ -616,6 +616,4 @@ class UserProfileView(LoginRequiredMixin, View):
 
 
 
-
-
-    
+   

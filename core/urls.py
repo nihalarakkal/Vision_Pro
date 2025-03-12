@@ -1,18 +1,18 @@
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
 from .views import (Home, Checkout, ProductDetail,Base,
                 add_to_cart, remove_from_cart,
                 OrderSummary,StripePayment, remove_single_item_from_cart,
                  payment_done, payment_canceled, 
                 Search, AddCoupon, RefundRequest,
-                UserProfileView, AddLenses, RemoveLenses)
-                
+                UserProfileView, AddLenses,RemoveLenses)
+              
 app_name = "core"
 handler404 = 'core.views.page_not_found_view'
 
 urlpatterns = [
+   
     path("home",Home.as_view(), name="home"),
     path("",Base.as_view(),name="base"),
     path("order-summary/", OrderSummary.as_view(), name="order-summary"),
@@ -30,6 +30,7 @@ urlpatterns = [
     path('search/',Search.as_view(), name='search'),
     path("refund-request/", RefundRequest.as_view(), name="refund_request"),
     path("user/",UserProfileView.as_view(), name="user"),
+ 
   
   
 

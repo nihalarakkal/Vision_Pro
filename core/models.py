@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 
 
 
+
 CATEGORIES_CHOICES = (
     ('FS', "Full Sheet Frame"),
     ('FM', "Full Metal Frame"),
@@ -48,8 +49,8 @@ class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    category = models.CharField(max_length=2, choices=CATEGORIES_CHOICES)
-    label = models.CharField(max_length=1, choices=LABEL_CHOICES)
+    category = models.CharField(max_length=20, choices=CATEGORIES_CHOICES)
+    label = models.CharField(max_length=30, choices=LABEL_CHOICES)
     slug = models.SlugField()
     description = models.TextField(default="This is a description of the product.")
     features = models.TextField(default="This is a description of the product.")
@@ -195,6 +196,7 @@ class EyeLenses(models.Model):
 
     def __str__(self):
         return self.user.username
+
 
 
 
