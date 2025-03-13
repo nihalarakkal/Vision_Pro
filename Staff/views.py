@@ -57,7 +57,7 @@ def update_products(request,prd_id):
     except MultiValueDictKeyError:
         file=Item.objects.get(id=prd_id).fview
         file=Item.objects.get(id=prd_id).sview
-        Item.objects.filter(id=prd_id).update(title=ti,price=pr,discount_price=dp,category=cat,label=lab,slug=slg,description=des, features=fea,fview=img,sview=img)
+        Item.objects.filter(id=prd_id).update(title=ti,price=pr,discount_price=dp,category=cat,label=lab,slug=slg,description=des, features=fea,fview=file,sview=file)
     return redirect("Staff:display_products")
 
 def delete_products(request,prd_id):

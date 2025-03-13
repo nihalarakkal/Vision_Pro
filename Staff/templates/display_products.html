@@ -43,8 +43,16 @@
                 <td>{{data.label}}</td>
                 <td>{{data.description}}</td>
                 <td>{{data.features}}</td>
-                <td>{{data.fview}}</td>
-                <td>{{data.sview}}</td>
+                <td>
+                  {% if data.fview %}
+                  <img src="{{data.fview.url}}" width="100px" height="100px">
+                  {% endif %}
+                </td>
+                <td>
+                  {% if data.fview %}
+                  <img src="{{data.sview.url}}" width="100px" height="100px">
+                </td>
+                {% endif %}
                 <td>
                   <a href="{% url 'Staff:edit_products' prd_id=data.id %}">
              <button type="button" class="btn btn-dark btn-icon-text">
