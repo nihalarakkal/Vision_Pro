@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.views.generic import TemplateView
 from core.models import Item,UserProfile,OrderItem,Order
 from django.contrib import messages
@@ -60,26 +60,61 @@ def admin_edit_products(request,prd_id):
     data=Item.objects.get(id=prd_id)
     cat =Item.objects.all()
     return render(request,"edit_products.html",{'data':data,'cat':cat})
-def admin_update_products(request,prd_id):
-    if request.method=="POST":
-        ti=request.POST.get('title')
-        pr=request.POST.get('price')
-        dp=request.POST.get('d_price')
-        cat=request.POST.get('category')
-        lab=request.POST.get('label')
-        slg=request.POST.get('slug')
-        des=request.POST.get('description')
-        fea=request.POST.get('Features')
-    try:
-        img=request.FILES['image']
-        fs=FileSystemStorage()
-        file=fs.save(img.name, img)
-    except MultiValueDictKeyError:
-        file=Item.objects.get(id=prd_id).fview
-        file=Item.objects.get(id=prd_id).sview
-        Item.objects.filter(id=prd_id).update(title=ti,price=pr,discount_price=dp,category=cat,label=lab,slug=slg,description=des, features=fea,fview=file,sview=file)
-    return redirect("Admin:display_products")
+# def admin_update_products(request,prd_id):
+#     if request.method=="POST":
+#         ti=request.POST.get('title')
+#         pr=request.POST.get('price')
+#         dp=request.POST.get('d_price')
+#         cat=request.POST.get('category')
+#         lab=request.POST.get('label')
+#         slg=request.POST.get('slug')
+#         des=request.POST.get('description')
+#         fea=request.POST.get('Features')
+#     try:
+#         img=request.FILES['image']
+#         fs=FileSystemStorage()
+#         file=fs.save(img.name, img)
+#     except MultiValueDictKeyError:
+#         file=Item.objects.get(id=prd_id).fview
+#         file=Item.objects.get(id=prd_id).sview
+#         Item.objects.filter(id=prd_id).update(title=ti,price=pr,discount_price=dp,category=cat,label=lab,slug=slg,description=des, features=fea,fview=file,sview=file)
+#     return redirect("Admin:display_products")
 
+
+def admin_update_products(request, prd_id):
+    product = get_object_or_404(Item, id=prd_id)
+
+    if request.method == "POST":
+        # Fetch form data
+        ti = request.POST.get('title')
+        pr = request.POST.get('price')
+        dp = request.POST.get('d_price')
+        cat = request.POST.get('category')
+        lab = request.POST.get('label')
+        slg = request.POST.get('slug')
+        des = request.POST.get('description')
+        fea = request.POST.get('Features')
+
+        # Handle images
+        img1 = request.FILES.get('img1', product.fview)  # Use existing if not uploaded
+        img2 = request.FILES.get('img2', product.sview)  # Use existing if not uploaded
+
+        # Update product details
+        product.title = ti
+        product.price = pr
+        product.discount_price = dp
+        product.category = cat
+        product.label = lab
+        product.slug = slg
+        product.description = des
+        product.features = fea
+        product.fview = img1
+        product.sview = img2
+        product.save()  # Calls model's save method properly
+
+        return redirect("Admin:display_products")
+
+    return redirect("Admin:display_products")
 def admin_delete_products(request,prd_id):
   x=Item.objects.filter(id=prd_id)
   x.delete()
